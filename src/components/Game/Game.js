@@ -56,7 +56,8 @@ export const  Game = () => {
         <ResultModal 
             isGameOver= {isGameOver} 
             winner = {winner} 
-            onNewGameClicked = {restartGame} />
+            onNewGameClicked = {restartGame}
+            xIsNext={xIsNext} />
 
     </>
   );

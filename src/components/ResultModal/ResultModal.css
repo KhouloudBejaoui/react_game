@@ -12,6 +12,17 @@
   #modal-overlay.modal-open {
       display: grid;
   }
+
+  #modal-test{
+    display: grid;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
   
   #game-result-modal {
     display: grid;
@@ -24,7 +35,27 @@
     display: flex;
     align-items: flex-end;
   }
-  
+
+  #turn-container-parent {
+    display: flex;
+    align-items: flex-end;
+    margin-left: 35%;
+  }
+  #turn-container-child{
+    margin-bottom: 4vmin;
+    width: 20vmin;
+    height: 8vmin;
+    font-size: var(--main-title-font-size);
+    font-weight: bold;
+    color: var(--primary-color);
+    background: var(--accent-color);
+    border: var(--default-accent-border);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--modal-items-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   #winner-container {
     margin-bottom: 4vmin;
     width: 30vmin;
