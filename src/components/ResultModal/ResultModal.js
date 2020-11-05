@@ -16,34 +16,26 @@ export const  ResultModal = (props) => {
     const resultModal= 
     props.isGameOver ?
         <div id="modal-overlay" className={resultModalClasses}>
-        <div id="game-result-modal">
-            <div id="result-container">
-                <div id="winner-container">
-                    <span>{message}</span>
+            <div id="game-result-modal">
+                <div id="result-container">
+                    <div id="winner-container">
+                        <span>{message}</span>
+                    </div>
+                </div>
+                <div id="new-game-container">
+                    <button 
+                        id="new-game-button"
+                        onClick={props.onNewGameClicked}>Start New Game
+                    </button>
                 </div>
             </div>
-            <div id="new-game-container">
-                <button 
-                    id="new-game-button"
-                    onClick={props.onNewGameClicked}>Start New Game
-                </button>
-            </div>
-        </div>
-    </div>:
-    <div>
+        </div>:
         <div id="turn-container-parent">
             <div id="turn-container-child">
                 <span>{props.xIsNext ? "X turn" :"O turn"}</span>
             </div>
         </div>
-        <div id="new-game-container">
-            <button 
-                id="new-game-button"
-                onClick={props.onNewGameClicked}>Restart
-            </button>
-        </div>
-    </div>
     return (
         resultModal
-  );
+    );
 }

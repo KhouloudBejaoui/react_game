@@ -1,11 +1,19 @@
 import React from 'react';
+import {BrowserRouter,Switch,Route} from 'react-router-dom'
 
 import { Game } from './components/Game/Game';
+import {Home} from './components/Home/Home'
 
 function App() {
-  return (
+    return (
     <>
-      <Game/>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/Human-VS-Humain" component={Game}></Route>
+          {/* <Route exact path="/Human-VS-Computer" component={Game2}></Route> */}
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

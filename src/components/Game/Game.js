@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Game.css';
+import {Link} from 'react-router-dom'
 
 import { Board } from '../Board/Board';
 import { ResultModal } from '../ResultModal/ResultModal';
@@ -45,7 +46,22 @@ export const  Game = () => {
     };
 
   return (
-    <>
+    <>  <div style={{textAlign:"center",margin:"5px 0 50px 0"}}>
+            <Link to='/' style={{ textDecoration: 'none' }}>
+                <div id="back-home-container" style={{display:"inline"}}>
+                    <button 
+                        id="new-game-button"
+                        >Home Page
+                    </button>
+                </div>
+            </Link>
+            <div id="back-home-container" style={{display:"inline"}}>
+                <button 
+                    id="new-game-button"
+                    onClick={restartGame}>Restart
+                </button>
+            </div>
+        </div>
         <div id="game">
             <h1>Tic Tac Toe</h1>
             <Board 
