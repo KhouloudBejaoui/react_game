@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Game.css';
 import {Link} from 'react-router-dom'
+import { Footer } from '../Footer/Footer';
 
 import { Board } from '../Board/Board';
 import { ResultModal } from '../ResultModal/ResultModal';
@@ -13,6 +14,8 @@ export const  Game = () => {
     const [isGameOver, SetIsGameOver] = useState (false);
     const [numberOfTurnsLeft, SetNumberOfTurnsLeft] = useState(9);
     const [winner, setWinner] = useState();
+    const [scoreX, setScoreX] = useState(0);
+    const [scoreO, setScoreO] = useState(0);
     const [winningCombination, setWinningCombination] = useState([]); //lblasa mtaa winner
 
     const isCellEmpty = (cellIndex) => cellValues[cellIndex] === ''; //bech t3awdch tbadel valeur t3 cell mara okhra
@@ -25,7 +28,10 @@ export const  Game = () => {
         setWinner(undefined);
         setWinningCombination([]);
     }
-
+    const handleScoreRestart=()=>{
+        setScoreO(0)
+        setScoreX(0)
+    }
     const onCellClicked = (cellIndex) =>{
         if (isCellEmpty(cellIndex)) {
             const newCellValues = [...cellValues];
@@ -41,12 +47,22 @@ export const  Game = () => {
             SetIsGameOver(calcResult.hasResult);
             SetNumberOfTurnsLeft(newNumberOfTurnsLeft);
             setWinner(calcResult.winner);
+            console.log(calcResult.winner)
+            if(calcResult.winner==="X"){
+                setScoreX(prevScoreX=>prevScoreX+1)
+            }
+            if(calcResult.winner==="O"){
+                setScoreO(prevScoreO=>prevScoreO+1)
+            }
             setWinningCombination(calcResult.winningCombination);//chtetlawn blast winner
         }
     };
 
   return (
-    <>  <div style={{textAlign:"center",margin:"5px 0 50px 0"}}>
+    <>  
+    {
+        !isGameOver ?     
+        <div style={{textAlign:"center",margin:"5px 0 50px 0"}}>
             <Link to='/' style={{ textDecoration: 'none' }}>
                 <div id="back-home-container" style={{display:"inline"}}>
                     <button 
@@ -61,7 +77,16 @@ export const  Game = () => {
                     onClick={restartGame}>Restart
                 </button>
             </div>
-        </div>
+            <div id="back-home-container" style={{display:"inline"}}>
+                <button 
+                    id="new-game-button"
+                    onClick={handleScoreRestart}>Restart Score
+                </button>
+            </div>
+        </div> :
+        null
+    }
+
         <div id="game">
             <h1>Tic Tac Toe</h1>
             <Board 
@@ -73,8 +98,9 @@ export const  Game = () => {
             isGameOver= {isGameOver} 
             winner = {winner} 
             onNewGameClicked = {restartGame}
-            xIsNext={xIsNext} />
-
+            xIsNext={xIsNext} 
+        />
+        <Footer scoreO={scoreO} scoreX={scoreX} />
     </>
   );
 }

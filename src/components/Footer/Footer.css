@@ -1,23 +1,18 @@
 
-.fixed-header, .fixed-footer{
+.fixed-footer{
+    display: flex;
     width: 100%;
-    position: fixed;        
-    background: #333;
-    padding: 12px 0;
+    justify-content: space-between;
+    align-items: center;
     color: #fff;
 }
 .fixed-header{
     top: 0;
 }
-.fixed-footer{
-    bottom: 0;
-    margin-left: -613px;
-}
 .right{
     position: absolute;
     left: 89%;
     bottom: 20px;
-    margin-left: -20px;
 }
 .left{
     position: absolute;
@@ -26,10 +21,32 @@
 }
 .score{
     font-size: 23px;
-    /*position:absolute;*/
+    position:absolute;
     text-align:center;
-    width:26px;
    /* padding-top:3px;*/
+    bottom: 15%;
+    left: 35%;
     color: black;
-    margin-left: -113px;
+}
+
+@media (max-width: 1300px) {
+    .fa-10x{
+        font-size: 5em;
+    }
+    .score{
+        font-size: 18px;
+        bottom: 10%;
+        left: 25%;
+    }
+}
+
+@media (max-width: 700px) {
+    .fa-10x{
+        font-size: 3em;
+    }
+    .score{
+        font-size: 15px;
+        bottom: 10%;
+        left: 15%;
+    }
 }
