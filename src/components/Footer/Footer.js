@@ -8,8 +8,16 @@ import './Footer.css';
 export const  Footer = () => {
 
     return (
+        //rodou responsive if u can o kaml estwiii
         <>
-            <footer class="footer"></footer>
+            <div class="fixed-footer">
+                <i class="fa fa-user fa-10x left"><span>score:</span></i>
+                
+                <i class="fa fa-user fa-10x right" ><span>score:</span></i>  
+                
+                <div class="container"></div>   
+                    
+            </div>
         
         </>
     );
