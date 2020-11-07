@@ -1,13 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-
+import { Footer } from '../Footer/Footer';
 
 import './Home.css';
 
 export const  Home = (props) => {
 
     return (
+        <>
         <div>
            
             <h1>Tic Tac Toe</h1>
@@ -21,6 +22,10 @@ export const  Home = (props) => {
                     <button id="new-game-button"><i class="fa fa-user"></i> vs <i class="fa fa-robot"></i></button>
                 </div>
             </Link>
+            
+            
         </div>
+        <Footer/>
+        </>
   );
 }
