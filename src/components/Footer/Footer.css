@@ -24,7 +24,7 @@
     left: 25px;
     bottom: 20px;
 }
-span{
+.score{
     font-size: 23px;
     /*position:absolute;*/
     text-align:center;
