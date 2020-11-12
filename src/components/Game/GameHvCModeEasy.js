@@ -8,7 +8,7 @@ import { ResultModal } from '../ResultModal/ResultModal';
 import { CalculateWinner } from '../util/WinnerCalculator';
 
 
-export const  Game = () => {
+export const  GameHvCModeEasy = () => {
     const [cellValues, setCellValues] = useState(['','','','','','','','','']);// kaabet les cellules par defaut bch ytnahawch mn blasthom
     const [xIsNext, setXIsNext] = useState(true);
     const [isGameOver, SetIsGameOver] = useState (false);
@@ -18,7 +18,8 @@ export const  Game = () => {
     const [scoreO, setScoreO] = useState(0);
     const [winningCombination, setWinningCombination] = useState([]); //lblasa mtaa winner
 
-    const isCellEmpty = (cellIndex) => cellValues[cellIndex] === ''; //bech t3awdch tbadel valeur t3 cell mara okhra
+    const isCellEmpty = (cellIndex) => 
+        cellValues[cellIndex] === ''; //bech t3awdch tbadel valeur t3 cell mara okhra
 
     const restartGame = () => {
         setCellValues(['','','','','','','','','']); 
@@ -35,15 +36,58 @@ export const  Game = () => {
     const onCellClicked = (cellIndex) =>{
         if (isCellEmpty(cellIndex)) {
             const newCellValues = [...cellValues];
-            newCellValues[cellIndex] = xIsNext ? 'X' : 'O';
+            console.log(cellIndex,"cellIndex")
+            newCellValues[cellIndex] ='X';
+            let newNumberOfTurnsLeft = numberOfTurnsLeft - 1 ;
+            console.log(newNumberOfTurnsLeft)
+            let calcResult = CalculateWinner(newCellValues, newNumberOfTurnsLeft, cellIndex);
+                if(calcResult.hasResult){
+                    setCellValues(newCellValues); //yhot valeur f wst cell
+                    SetIsGameOver(calcResult.hasResult);
+                    setWinner(calcResult.winner);
+                    if(calcResult.winner==="X"){
+                        setScoreX(prevScoreX=>prevScoreX+1)
+                    }
+                    if(calcResult.winner==="O"){
+                        setScoreO(prevScoreO=>prevScoreO+1)
+                    }
+                    return
+                }
+
+            let ran=null;
+            const x=cellIndex
+            do{
+                ran=Math.floor(Math.random() * 9); 
+                cellIndex=ran
+            }while(!isCellEmpty(cellIndex)|| cellIndex===x)
+            console.log(cellIndex,"ran")
+            newCellValues[cellIndex] ='O';
             console.log(newCellValues)
-            const newNumberOfTurnsLeft = numberOfTurnsLeft - 1 ;
+            newNumberOfTurnsLeft = numberOfTurnsLeft - 1 ;
+            console.log(newNumberOfTurnsLeft,"hii")
 
             //calculate the result
-            const calcResult = CalculateWinner(newCellValues, newNumberOfTurnsLeft, cellIndex);
-            
+            calcResult = CalculateWinner(newCellValues, newNumberOfTurnsLeft, cellIndex);
+            if(calcResult.hasResult){
+                setCellValues(newCellValues); //yhot valeur f wst cell
+                SetIsGameOver(calcResult.hasResult);
+                setWinner(calcResult.winner);
+                if(calcResult.winner==="X"){
+                    setScoreX(prevScoreX=>prevScoreX+1)
+                }
+                if(calcResult.winner==="O"){
+                    setScoreO(prevScoreO=>prevScoreO+1)
+                }
+                return
+            }
+            if(newNumberOfTurnsLeft===5){
+                setCellValues(newCellValues); //yhot valeur f wst cell
+                setWinner(undefined);
+                SetIsGameOver(true);
+                return
+
+            }
             setCellValues(newCellValues); //yhot valeur f wst cell
-            setXIsNext(!xIsNext); //bech yhot O
             SetIsGameOver(calcResult.hasResult);
             SetNumberOfTurnsLeft(newNumberOfTurnsLeft);
             setWinner(calcResult.winner);
@@ -58,6 +102,7 @@ export const  Game = () => {
         }
     };
 
+    
   return (
     <>  
     {
@@ -91,9 +136,9 @@ export const  Game = () => {
             <h1>Tic Tac Toe</h1>
             <Board 
                 cellValues = {cellValues} 
+                xIsNext={xIsNext} 
                 winningCombination = {winningCombination} 
-                cellClicked={onCellClicked}
-                xIsNext={xIsNext} />
+                cellClicked={onCellClicked} />
         </div>
         <ResultModal 
             isGameOver= {isGameOver} 
