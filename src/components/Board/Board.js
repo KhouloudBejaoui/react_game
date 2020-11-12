@@ -11,8 +11,10 @@ export const  Board = (props) => {
                              props.winningCombination.indexOf(index) >= 0 ;
 
        return <Cell 
+                id={index}
                 key={index} 
                 value={value} 
+                xIsNext={props.xIsNext} 
                 canHighLignt= {canHighLignt} 
                 onClick={() => props.cellClicked(index)} />
     });
