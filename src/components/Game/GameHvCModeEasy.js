@@ -115,6 +115,7 @@ export const  GameHvCModeEasy = () => {
                         >Home Page
                     </button>
                 </div>
+                &emsp;
             </Link>
             <div id="back-home-container" style={{display:"inline"}}>
                 <button 
@@ -122,6 +123,7 @@ export const  GameHvCModeEasy = () => {
                     onClick={restartGame}>Restart
                 </button>
             </div>
+            &emsp;
             <div id="back-home-container" style={{display:"inline"}}>
                 <button 
                     id="new-game-button"
