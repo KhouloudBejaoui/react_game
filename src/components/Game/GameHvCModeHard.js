@@ -8,7 +8,7 @@ import { ResultModal } from '../ResultModal/ResultModal';
 import { CalculateWinner } from '../util/WinnerCalculator';
 
 
-export const  GameHvCModeEasy = () => {
+export const  GameHvCModeHard = () => {
     const [cellValues, setCellValues] = useState(['','','','','','','','','']);// kaabet les cellules par defaut bch ytnahawch mn blasthom
     const [xIsNext, setXIsNext] = useState(true);
     const [isGameOver, SetIsGameOver] = useState (false);
@@ -17,6 +17,93 @@ export const  GameHvCModeEasy = () => {
     const [scoreX, setScoreX] = useState(0);
     const [scoreO, setScoreO] = useState(0);
     const [winningCombination, setWinningCombination] = useState([]); //lblasa mtaa winner
+    const [availSpots, setAvailSpots] = useState([]); //lblasa mtaa winner
+
+
+    function checkWin(board, player) {
+        const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [6, 4, 2]
+        ]
+        
+        let plays = board.reduce((a, e, i) =>
+            (e === player) ? a.concat(i) : a, []);
+        let gameWon = null;
+        for (let [index, win] of winCombos.entries()) {
+            if (win.every(elem => plays.indexOf(elem) > -1)) {
+                gameWon = {index: index, player: player};
+                break;
+            }
+        }
+        return gameWon;
+    }
+
+
+
+    const minimax=(newBoard, player) =>{
+
+        const availSpots=[]
+        let j=0
+        for (var i = 0; i < newBoard.length; i++) {
+            if(newBoard[i]!=='X'&&newBoard[i]!=='O'){
+                availSpots[j]=i;
+                j++
+            }
+        }
+        if (checkWin(newBoard, "X")) {
+            return {score: -10};
+        } else if (checkWin(newBoard, "O")) {
+            return {score: 10};
+        } else if (availSpots.length === 0) {
+            return {score: 0};
+        }
+        var moves = [];
+        for (var i = 0; i < availSpots.length; i++) {
+            var move = {};
+            move.index = newBoard[availSpots[i]];
+            newBoard[availSpots[i]] = player;
+    
+            if (player === "O") {
+                var result = minimax(newBoard, "X");
+                move.score = result.score;
+            } else {
+                var result = minimax(newBoard, "O");
+                move.score = result.score;
+            }
+    
+            newBoard[availSpots[i]] = move.index;
+    
+            moves.push(move);
+        }
+    
+        var bestMove;
+        if(player === 'O') {
+            var bestScore = -10000;
+            for(var i = 0; i < moves.length; i++) {
+                if (moves[i].score > bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            var bestScore = 10000;
+            for(var i = 0; i < moves.length; i++) {
+                if (moves[i].score < bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+    
+        return moves[bestMove];
+    }
+    
 
     const isCellEmpty = (cellIndex) => 
         cellValues[cellIndex] === ''; //bech t3awdch tbadel valeur t3 cell mara okhra
@@ -59,12 +146,23 @@ export const  GameHvCModeEasy = () => {
                 ran=Math.floor(Math.random() * 9); 
                 cellIndex=ran
             }while(!isCellEmpty(cellIndex)|| cellIndex===x)
+            const newCellValues2=[...newCellValues]
+            for (var i = 0; i < newCellValues2.length; i++){
+                if(newCellValues2[i]===''){
+                    newCellValues2[i]=i
+                    console.log("hi")
+                }
+            }
+            console.log(newCellValues2)
+            console.log(minimax(newCellValues2,'O'))
 
-            newCellValues[cellIndex] ='O';
+            newCellValues[minimax(newCellValues2,'O').index]='O';
+            console.log(newCellValues)
+
             newNumberOfTurnsLeft = numberOfTurnsLeft - 1 ;
 
             //calculate the result
-            calcResult = CalculateWinner(newCellValues, newNumberOfTurnsLeft, cellIndex);
+            calcResult = CalculateWinner(newCellValues, newNumberOfTurnsLeft, minimax(newCellValues2,'O').index);
             if(calcResult.hasResult){
                 setCellValues(newCellValues); //yhot valeur f wst cell
                 SetIsGameOver(calcResult.hasResult);
