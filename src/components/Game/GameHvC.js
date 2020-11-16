@@ -12,12 +12,17 @@ export const  GameHvC = (props) => {
             <h1>Choose Mode</h1>
             <Link to='/Human-VS-Computer-Easy' style={{ textDecoration: 'none' }}>
                 <div id="new-game-container">
-                    <button id="new-game-button" style={{width:"100px"}}>Easy</button>
+                    <button id="new-game-button" style={{width:"150px"}}>Easy</button>
                 </div>
             </Link>
             <Link to='/Human-VS-Computer-Hard' style={{ textDecoration: 'none' }}>
                 <div id="new-game-container">
-                    <button id="new-game-button"style={{width:"100px"}}>Hard</button>
+                    <button id="new-game-button"style={{width:"150px"}}>Hard</button>
+                </div>
+            </Link>
+            <Link to='/' style={{ textDecoration: 'none' }}>
+                <div id="new-game-container" >
+                    <button id="new-game-button"style={{width:"150px"}}><i class="fas fa-long-arrow-left"></i> Go back</button>
                 </div>
             </Link>
             

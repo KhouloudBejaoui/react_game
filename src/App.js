@@ -11,6 +11,7 @@ import {GameHvCModeHard} from './components/Game/GameHvCModeHard'
 
 
 import {Home} from './components/Home/Home'
+import { Instructions } from './components/Home/Instructions';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
           
           <Route exact path="/Human-VS-Computer-Hard" component={GameHvCModeHard}></Route> 
 
+          <Route exact path="/Instructions" component={Instructions}></Route> 
         </Switch>
       </BrowserRouter>
     </>
