@@ -37,3 +37,36 @@ h1 {
   
 
   
+Link{
+  text-decoration: none;
+}
+li {
+  list-style: none;
+  padding: 20px;
+}
+.st{
+  color:#007340;
+  font-weight: bold;
+}
+.homeh1{
+  
+  margin-bottom: 70px;
+  font-size: 100px;
+
+}
+.inst{
+  margin: auto;
+  /*border: 1px solid gray;*/
+}
+h2{
+  text-align: center;
+  margin-bottom: 80px;
+  font-size: 50px;
+}
+img{
+
+  left: 0;
+  margin-top: -300px;
+  margin-left: 700px;
+}
+

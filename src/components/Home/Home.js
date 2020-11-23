@@ -9,9 +9,10 @@ import './Home.css';
 export const  Home = (props) => {
 
     return (
-        <>
-        <div className="home">
-        
+        <React.Fragment>
+
+        <div >
+
             <h1 className=" homeh1 wow fadeInDown"data-wow-duration="2s" data-wow-delay=".5s" >Tic Tac Toe</h1>
             
             <Link to='/Human-VS-Humain' style={{ textDecoration: 'none' }}>
@@ -34,6 +35,6 @@ export const  Home = (props) => {
             
         </div>
         <img className="wow rotateIn" data-wow-duration="3s" data-wow-delay=".9s"src={man} width="300px"/>
-        </>
+        </React.Fragment>
   );
 }
